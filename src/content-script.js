@@ -5,15 +5,10 @@ const captureEvent = (e) => {
   let userAction = { action: e.type };
   try {
     if (e.type === "load") {
-      userAction = {
-        value: e.target.URL,
-      };
+      userAction = { ...userAction, value: e.target.URL };
     } else {
       const selector = getCssSelector(e.target);
-      userAction = {
-        selector,
-        value: e.target.value,
-      };
+      userAction = { ...userAction, selector, value: e.target.value };
     }
     chrome.runtime.sendMessage({ userAction }, (response) => {
       console.log(response);
